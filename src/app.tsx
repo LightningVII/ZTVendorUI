@@ -5,7 +5,7 @@ import { history, RequestConfig } from 'umi';
 // import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { ResponseError } from 'umi-request';
-import { queryCurrent } from './services/user';
+// import { queryCurrent } from './services/user';
 import defaultSettings from '../config/defaultSettings';
 
 const pagePathname = (location: Location) =>
@@ -18,8 +18,8 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-      const currentUser = await queryCurrent();
-      return currentUser;
+      // const currentUser = await queryCurrent();
+      return {};
     } catch (error) {
       history.push('/user/login');
     }
@@ -54,7 +54,8 @@ export const layout = ({
       const { location } = history;
       // 如果没有登录，重定向到 login
       if (!currentUser?.userid && pagePathname(location)) {
-        history.push('/user/login');
+        history.push('/list');
+        // history.push('/user/login');
       }
     },
     menuRender: false,
