@@ -89,7 +89,6 @@ const TableList: React.FC<{}> = () => {
     all: { text: '全部', status: 'all' },
   });
   const [typesEnum, setTypesEnum] = useState<AbcEnumObj>();
-
   /* '供应商大类', // vendor_categories
   '产品类别', // vendor_types
   '经营主要产品', // main_products
