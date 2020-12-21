@@ -90,6 +90,27 @@ const TableList: React.FC<{}> = () => {
   });
   const [typesEnum, setTypesEnum] = useState<AbcEnumObj>();
 
+  /* '供应商大类', // vendor_categories
+  '产品类别', // vendor_types
+  '经营主要产品', // main_products
+  '单位名称', // name
+  '企业性质', // nature
+  '品牌', // brand
+  '联系人', // contact
+  '电话', // phone
+  '固话', // telephone
+  '邮箱', // mailbox
+  '注册资金', // capital
+  '企业生产地及规模', // address
+  '是否考察', // is_inspected
+  '合作模式', // cooperation_model
+  '付款方式', // payment
+  '生产或供货能力', // productivity
+  '可否入公司库', // can_in_storage
+  '企业主要特点', // features
+  '评定级别ABC', // level
+  '备注', // remarks */
+
   const columns: ProColumns<TableListItem>[] = [
     {
       title: '单位名称',
@@ -99,8 +120,39 @@ const TableList: React.FC<{}> = () => {
       render: (dom, entity) => <a onClick={() => setRow(entity)}>{dom}</a>,
     },
     {
-      title: '法定代表人',
-      dataIndex: 'legal',
+      title: '经营主要产品',
+      dataIndex: 'main_products',
+      search: false,
+      width: 220,
+    },
+    {
+      title: '企业性质',
+      dataIndex: 'nature',
+      search: false,
+    },
+    {
+      title: '品牌',
+      dataIndex: 'brand',
+      search: false,
+    },
+    {
+      title: '联系人',
+      dataIndex: 'contact',
+      search: false,
+    },
+    {
+      title: '电话',
+      dataIndex: 'phone',
+      search: false,
+    },
+    {
+      title: '固话',
+      dataIndex: 'telephone',
+      search: false,
+    },
+    {
+      title: '邮箱',
+      dataIndex: 'mailbox',
       search: false,
     },
     {
@@ -109,28 +161,45 @@ const TableList: React.FC<{}> = () => {
       search: false,
     },
     {
-      title: '注册地',
-      dataIndex: 'registration',
+      title: '企业生产地及规模',
+      dataIndex: 'address',
       search: false,
     },
     {
-      title: '企业性质',
-      dataIndex: 'nature',
+      title: '是否考察',
+      dataIndex: 'is_inspected',
+      renderText: (item) => (item ? '是' : '否'),
       search: false,
     },
     {
-      title: '业绩',
-      dataIndex: 'performance',
+      title: '付款方式',
+      dataIndex: 'payment',
+      search: false,
+    },
+    {
+      title: '生产或供货能力',
+      dataIndex: 'productivity',
+      search: false,
+    },
+    {
+      title: '可否入公司库',
+      dataIndex: 'can_in_storage',
+      renderText: (item) => (item ? '是' : '否'),
+      search: false,
+    },
+    {
+      title: '企业主要特点',
+      dataIndex: 'features',
+      search: false,
+    },
+    {
+      title: '合作模式',
+      dataIndex: 'cooperation_model',
       valueType: 'textarea',
       search: false,
     },
-    /* {
-      title: '企业评价',
-      dataIndex: 'registration',
-      search: false
-    }, */
     {
-      title: '建议等级',
+      title: '评定级别ABC',
       dataIndex: 'level',
       search: false,
     },
@@ -140,11 +209,6 @@ const TableList: React.FC<{}> = () => {
       valueType: 'textarea',
       search: false,
     },
-    /* {
-      title: '办公地址',
-      dataIndex: 'address',
-      search: false
-    }, */
     {
       title: 'ID',
       dataIndex: 'id',
@@ -162,13 +226,13 @@ const TableList: React.FC<{}> = () => {
       title: '细分类型',
       dataIndex: 'vendor_types.value',
       hideInTable: true,
-      fieldProps: {
+      fieldProps: () => ({
         mode: 'multiple',
         showArrow: true,
         maxTagCount: 2,
         filterOption: (inputValue: string, option: { label: string }) =>
           option.label.includes(inputValue),
-      },
+      }),
       valueEnum: typesEnum,
     },
     /* {
@@ -221,6 +285,7 @@ const TableList: React.FC<{}> = () => {
         headerTitle="供应商库"
         actionRef={actionRef}
         formRef={formRef}
+        scroll={{ x: '200vw' }}
         expandable={{
           rowExpandable: (data: any) =>
             data?.basicInformationFile?.length + data?.evaluationInformationFile.length,
@@ -299,9 +364,9 @@ const TableList: React.FC<{}> = () => {
           onFieldsChange: (e) => {
             console.log('onFieldsChange :>> ', e);
           },
-          onFinish: () => {
+          /* onFinish: () => {
             console.log('onFieldsChange :>> ', 1);
-          },
+          }, */
         }}
         request={(params) => getCompanies(params)}
         columns={columns}
